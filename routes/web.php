@@ -32,3 +32,4 @@ Route::post('/dashboard', ['middleware' => 'auth', 'uses' => 'App\Http\Controlle
 
 
 
+//Route::get('/admin', 'App\Http\Controllers\Admin\IndexController@index')->name('admin.index');

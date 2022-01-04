@@ -26,6 +26,7 @@ class IndexController extends Controller
         ){
             $user = Auth::user();
             if($user->blocked){
+                Auth::logout();
                 return redirect()->back()->with('error', 'This user is blocked. Sorry!');
             }
             $user->last_login_at = Carbon::now("Europe/Kiev");
