@@ -23,7 +23,7 @@ class RegisterController extends Controller
            'name' => 'required|string|min:5|max:50',
            /*'email' => 'required|email:rfc,dns|unique:App\Models\User,email',*/
             'email' => 'required|email|unique:App\Models\User,email',
-            'password' => 'required|confirmed|min:5',
+            'password' => 'required|confirmed',
         ]);
 
 
@@ -37,7 +37,7 @@ class RegisterController extends Controller
         ]);
 
 
-        session()->flash('registration', 'Спасибо за регистрацию! Теперь войдите под своими данными.');
+        session()->flash('registration', 'Thank you for your registration. Now log in with your credentials!');
 
 
         return redirect()->route('login.login');

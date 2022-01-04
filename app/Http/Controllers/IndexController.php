@@ -26,13 +26,14 @@ class IndexController extends Controller
         ){
             $user = Auth::user();
             if($user->blocked){
-                return redirect()->back()->with('error', 'Данный пользователь заблокирован. Извините!');
+                return redirect()->back()->with('error', 'This user is blocked. Sorry!');
             }
             $user->last_login_at = Carbon::now("Europe/Kiev");
             $user->save();
+            $request->session()->regenerate();
             return redirect()->route('dashboard');
         }
-        return redirect()->back()->with('error', 'Неправильные данные логина');
+        return redirect()->back()->with('error', 'Wrong credentials!');
     }
 
     public function logout(){

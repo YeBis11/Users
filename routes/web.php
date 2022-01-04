@@ -13,19 +13,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'App\Http\Controllers\IndexController@loginForm')->name('login');
-Route::post('/', 'App\Http\Controllers\IndexController@login')->name('login.login');
-Route::get('/logout', 'App\Http\Controllers\IndexController@logout')->name('login.logout');
+
+Route::get('/logout', 'App\Http\Controllers\IndexController@logout')->name('login.logout')->middleware('auth');
+
+
+Route::group(['middleware' => 'guest'], function(){
+    Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
+    Route::post('/register', 'App\Http\Controllers\RegisterController@register')->name('register.register');
+
+    Route::get('/', 'App\Http\Controllers\IndexController@loginForm')->name('login');
+    Route::post('/', 'App\Http\Controllers\IndexController@login')->name('login.login');
+});
 
 
 
-
-
-/*Route::get('/dashboard', 'App\Http\Controllers\DashController@index')->name('dashboard');*/
 Route::get('/dashboard', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\DashController@index'])->name('dashboard');
 Route::post('/dashboard', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\DashController@edit'])->name('dashboard.edit');
 
-Route::get('/register', 'App\Http\Controllers\RegisterController@index')->name('register.index');
-Route::post('/register', 'App\Http\Controllers\RegisterController@register')->name('register.register');
 
-Route::get('/admin', 'App\Http\Controllers\Admin\IndexController@index')->name('admin.index');
+
+//Route::get('/admin', 'App\Http\Controllers\Admin\IndexController@index')->name('admin.index');

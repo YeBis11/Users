@@ -37,11 +37,11 @@
                 <thead>
                 <tr>
                     <th scope="col" onclick="tableNumericSort(0)">#</th>
-                    <th scope="col">Select all <input type="checkbox" id="check-all"></th>
+                    <th scope="col">Select All <input type="checkbox" id="check-all"></th>
                     <th scope="col" onclick="tableSymbolicSort(2)">Name</th>
                     <th scope="col" onclick="tableSymbolicSort(3)">Email</th>
-                    <th scope="col" onclick="tableDateSort(4)">Registered at</th>
-                    <th scope="col" onclick="tableDateSort(5)">Last login at</th>
+                    <th scope="col" onclick="tableDateSort(4)">Register date</th>
+                    <th scope="col" onclick="tableDateSort(5)">Last login date</th>
                     <th scope="col" onclick="tableSymbolicSort(6)">Status</th>
 
                 </tr>
@@ -55,7 +55,12 @@
                         <td>{{ $user->email }}</td>
                         <td>{{$user->created_at}}</td>
                         <td>{{$user->last_login_at}}</td>
-                        <td>{{$user->blocked}}</td>
+                        @if($user->blocked)
+                            <td>Blocked</td>
+                            @else
+                            <td>OK</td>
+                            @endif
+
                     </tr>
                 @endforeach
                 </tbody>
@@ -66,7 +71,7 @@
     </form>
     {{--{{ $users->appends(['s' => request()->s])->links() }}--}}
 @else
-    <p>Записей не найдено...</p>
+    <p>There are no users to show</p>
 @endif
 </main>
 <script src="/js/checkbox.js"></script>
